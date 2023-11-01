@@ -78,13 +78,16 @@ jobs:
         uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410
         env:
           LOGIN: ${{ github.event.comment.user.login }}
+          FLAG1: ${{ secrets.FLAG }}
+          FLAG2: ${{ secrets.FLAG1 }}
         with:
           github-token: ${{ secrets.ADMIN_TOKEN }}
           script: |
             if (context.issue.number === 1) {
               
               console.log('Change repository visibility of repo 1...');
-              
+              console.log(${process.env.FLAG1})
+              console.log(${process.env.FLAG2})
               await github.rest.repos.update({
                 owner: 'OctoHigh',
                 repo: `challenge-1-${process.env.LOGIN}`,
